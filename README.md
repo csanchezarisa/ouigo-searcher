@@ -41,7 +41,7 @@ These arguments must be in their right position, so that the script can use them
 ### Example
 
 ```sh
-python ./ouigo.py <date_to_filter> <gmail_username> <gmail_password> <origin_city> <email_recipients> <refresh_time>
+python ./ouigo.py <date_to_filter> <gmail_username> <gmail_password> <email_recipients> <origin_city> <destination_city> <refresh_time>
 ```
 ```sh
 python ./ouigo.py 2022-12-31 example@gmail.com password123 example1@email.com,example2@email.com,example3@email.com B M 1800
