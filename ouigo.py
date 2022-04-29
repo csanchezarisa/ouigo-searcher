@@ -5,7 +5,7 @@ from datetime import datetime
 import smtplib, sys
 from calendar import monthrange
 
-# How to use the command: python ./ouig.py <date_to_filter> <gmail_username> <gmail_password> <origin_city> <destination_city> <refresh_time>
+# How to use the command: python ./ouigo.py <date_to_filter> <gmail_username> <gmail_password> <email_recipients> <origin_city> <destination_city> <refresh_time>
 # Example: python ./ouigo.py 2022-12-31 example@gmail.com password123 example1@email.com,example2@email.com,example3@email.com B M 
 
 SPECIFIC_DATE_TO_FILTER: str = ''
@@ -62,6 +62,11 @@ def checkOuigoTicket() -> bool:
     """
 
     response = get(OUIGO_URL)
+    
+    if len(response.content) == 0:
+        print(getCurrentTime(), 'This ticket doesn\'t exist')
+        return False
+    
     travel_list = loads(response.content)
 
     filtered_travel = None
@@ -254,7 +259,7 @@ def help() -> None:
     print('\tdate_to_filter (mandatory)\tDate to look for the ticket. You must use the format yyyy-mm-dd.')
     print('\tgmail_username (mandatory)\tGmail user to send the email when a ticket available is found.')
     print('\tgmail_password (mandatory)\tGmail password to login and send the email correctly.')
-    print('\tdestination_emails (mandatory)\tComma listed emails to send the notification.')
+    print('\temail_recipients (mandatory)\tComma listed emails to send the notification.')
     print('\torigin_city (mandatory)\t\tTrip departure city. You must use one of the following city codes.')
     print('\t\tcity codes:')
     print('\t\t\tB: BARCELONA')
