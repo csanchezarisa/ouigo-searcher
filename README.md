@@ -1,4 +1,4 @@
-# ouigo-searcher
+# Ouigo searcher
 ## _A Ouigo ticket searcher_
 
 ouigo-searcher is a python script that checks if a specific trip ticket is available in Ouigo page and notifies you with an email.
