@@ -29,7 +29,7 @@ Install the [requests](https://docs.python-requests.org/) module and execute the
 Run the following command:
 
 ```sh
-pip install requests
+pip install -r requirements.txt
 ```
 
 ## How to use the script
@@ -79,3 +79,29 @@ These are the mandatory arguments
 
 These are the optional arguments:
 - **refresh_time**: Time (in seconds) to retry is there's no ticket available. _It's 1800 by default_
+
+## Docker
+
+**ouigo-searcher** can also be executed using [docker](https://docs.docker.com/get-docker/).
+
+### Building the image
+
+First of all, you need to create a **docker image** by running the following command:
+
+```sh
+docker build -t ouigo-searcher .
+```
+
+### Running the script
+
+When the image has been successfully created, you will be able to run the script in docker by running the following command:
+
+```sh
+docker run ouigo-searcher {{ ARGUMENTS }}
+```
+
+For example:
+
+```sh
+docker run ouigo-searcher 2022-12-31 example@gmail.com password123 example1@email.com,example2@email.com,example3@email.com B M 1800
+```
