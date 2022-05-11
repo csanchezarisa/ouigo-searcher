@@ -105,3 +105,16 @@ For example:
 ```sh
 docker run ouigo-searcher 2022-12-31 example@gmail.com password123 example1@email.com,example2@email.com,example3@email.com B M 1800
 ```
+
+### Docker Hub repo
+
+There is also a **Docker Hub** repository with this docker image: [csanchezarisa/ouigo-searcher](https://hub.docker.com/r/csanchezarisa/ouigo-searcher).
+
+You can pull it and use it by running the following command:
+
+```sh
+docker pull csanchezarisa/ouigo-searcher
+```
+```sh
+docker run csanchezarisa/ouigo-searcher {{ ARGUMENTS }}
+```
