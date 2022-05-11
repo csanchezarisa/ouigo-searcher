@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ouigo-searcher:$(date +%s)
+      run: docker build . --file Dockerfile --tag ouigo-searcher:latest
 
     - name: Docker Login
       uses: docker/login-action@v2.0.0
@@ -25,4 +25,4 @@ jobs:
         logout: true
       
     - name: Push the Docker image
-      run: docker tag ouigo-searcher:$(date +%s) csanchezarisa/ouigo-searcher:$(date +%s)
+      run: docker tag ouigo-searcher:latest csanchezarisa/ouigo-searcher:latest && docker push csanchezarisa/ouigo-searcher:latest
