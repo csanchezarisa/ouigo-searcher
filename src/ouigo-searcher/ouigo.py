@@ -79,17 +79,64 @@ def checkOuigoTicket() -> bool:
     if filtered_travel['price'] != None:
         print(getCurrentTime(), 'This ticket exists')
 
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.ehlo()
-        server.login(GMAIL_USER, GMAIL_PASSWORD)
-        server.sendmail(GMAIL_USER, EMAIL_TO, EMAIL_TEXT)
-        server.close()
+        is_email_sent = sendEmail(GMAIL_USER, GMAIL_PASSWORD, EMAIL_TO, EMAIL_TEXT)
 
-        print(getCurrentTime(), 'Email sent')
-        return True
+        if is_email_sent:
+            print(getCurrentTime(), 'Email sent')
+            return True
+        else:
+            print(getCurrentTime(), 'Exiting')
+            sys.exit(1)
+
     else:
         print(getCurrentTime(), 'This ticket doesn\'t exist')
         return False
+
+
+def sendEmail(username: str, password: str, email_recipients: list[str], email_body: str) -> bool:
+    """
+    Sends an email to a specific recipients list, 
+    using Gmail smtp
+    
+    Parameters
+    ----------
+    username : str
+        Email adress used to send the email
+    password : str
+        Password of the email adress
+    email_recipients : list[str]
+        List of email addresses that will recive the email
+    email_body : str
+        Email body
+
+    Return
+    ------
+    is_email_sent : bool
+        True if the email has been sent, false if it's not
+    """
+    is_email_sent = False
+
+    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+
+    try:
+        server.ehlo()
+        server.login(username, password)
+        server.sendmail(username, email_recipients, email_body)
+        is_email_sent = True
+
+    except smtplib.SMTPAuthenticationError as auth_error:
+        print(getCurrentTime(), 'There was an authentication error')
+        print(getCurrentTime(), auth_error.smtp_error)
+        is_email_sent = False
+
+    except Exception as exception:
+        print(getCurrentTime(), 'There was an error sending the email')
+        print(getCurrentTime(), exception)
+
+    finally:
+        server.close()
+
+    return is_email_sent
 
 
 def getCurrentTime() -> str:
@@ -120,7 +167,7 @@ EMAIL_BODY
 ))
 
 
-def getRangeTime(date: str) -> tuple[str]:
+def getRangeTime(date: str) -> tuple[str, str]:
     """
     Returns the first and last day of the month from the given date
     
@@ -195,7 +242,7 @@ def readConsoleArguments(args: list[str]) -> None:
         REFRESH_TIME = 1800
 
 
-def getCity(first_letter: str) -> tuple[str]:
+def getCity(first_letter: str) -> tuple[str, str]:
     """
     Translates the city code to the ouigo ID
 
