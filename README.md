@@ -28,10 +28,8 @@ It will send an email too when the ticket is available, using:
 - Gmail username
 - Gmail password
 
-_The gmail user must have the less secure options activated. You can activate it by going to: [Google less secure options]._
+_Now that Google has disabled the "**less security**" options, you'll need to set up your account to use **2-Step Verification** and create an **app password** before you can use it in this script.<br>To do this, you can go to the [Google Help Center](https://support.google.com/accounts/answer/185833?hl) or you can check this blog [catwoot blog](https://www.chatwoot.com/docs/product/channels/email/gmail/generate-app-password)._
 
-  [Google less secure options]: <https://myaccount.google.com/lesssecureapps>
-  
 ## 2. Installation <a name="installation"></a>
 
 ouigo-searcher requires [Python](https://www.python.org/downloads/) to run.
