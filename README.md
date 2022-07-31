@@ -79,13 +79,15 @@ These are the mandatory arguments
 - **origin_city**: Trip departure city. You must use one of the following city codes.
   - B: BARCELONA
   - M: MADRID
-  - Z: ZARAGOZA
   - T: TARRAGONA
+  - V: VALENCIA
+  - Z: ZARAGOZA
 - **destination_city**: Trip destination city. You must use one of the following city codes.
   - B: BARCELONA
   - M: MADRID
-  - Z: ZARAGOZA
   - T: TARRAGONA
+  - V: VALENCIA
+  - Z: ZARAGOZA
 
 ### 3.4. Optional arguments <a name="howto-optional"></a>
 
