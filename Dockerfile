@@ -1,5 +1,5 @@
 FROM python:slim
 WORKDIR /usr/src/app
-COPY . .
-RUN pip install -r requirements.txt
-ENTRYPOINT [ "python", "./src/ouigo-searcher/ouigo.py" ]
+COPY ./src .
+RUN pip install --no-cache-dir -r requirements.txt
+ENTRYPOINT [ "python", "./ouigo-searcher/ouigo.py" ]
