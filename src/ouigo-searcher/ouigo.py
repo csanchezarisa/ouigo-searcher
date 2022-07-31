@@ -4,6 +4,7 @@ from json import loads
 from datetime import datetime
 import smtplib, sys
 from calendar import monthrange
+from cities import cities
 
 # How to use the command: python ./ouigo.py <date_to_filter> <gmail_username> <gmail_password> <email_recipients> <origin_city> <destination_city> <refresh_time>
 # Example: python ./ouigo.py 2022-12-31 example@gmail.com password123 example1@email.com,example2@email.com,example3@email.com B M 
@@ -257,35 +258,16 @@ def getCity(first_letter: str) -> tuple[str, str]:
         Ouigo ID used to specify the city and city name
     """
 
-    first_letter = first_letter[0].capitalize()
+    first_letter: str = first_letter[0].capitalize()
 
-    code: str = ''
-    city: str = ''
-
-    # Barcelona
-    if first_letter == 'B':
-        code = '7171801'
-        city = 'BARCELONA'
-
-    # Madrid
-    elif first_letter == 'M':
-        code = 'MT1'
-        city = 'MADRID'
-
-    # Zaragoza
-    elif first_letter == 'Z':
-        code = '7104040'
-        city = 'ZARAGOZA'
-
-    # Tarragona
-    elif first_letter == 'T':
-        code = '7104104'
-        city = 'TARRAGONA'
-
-    # This city does not exist
-    else:
+    if first_letter not in cities:
         print(f'ERROR!\n{first_letter} city does not exist. Check the correct codes using the "h" arguments.')
         sys.exit(1)
+
+    city_info: dict[str, str] = cities.get(first_letter)
+
+    city: str = city_info.get('city')
+    code: str = city_info.get('code')
 
     return (code, city)
 
@@ -311,14 +293,16 @@ def help() -> None:
     print('\t\tcity codes:')
     print('\t\t\tB: BARCELONA')
     print('\t\t\tM: MADRID')
-    print('\t\t\tZ: ZARAGOZA')
     print('\t\t\tT: TARRAGONA')
+    print('\t\t\tV: VALENCIA')
+    print('\t\t\tZ: ZARAGOZA')
     print('\tdestination_city (mandatory)\tTrip destination city. You must use one of the following city codes.')
     print('\t\tcity codes:')
     print('\t\t\tB: BARCELONA')
     print('\t\t\tM: MADRID')
-    print('\t\t\tZ: ZARAGOZA')
     print('\t\t\tT: TARRAGONA')
+    print('\t\t\tV: VALENCIA')
+    print('\t\t\tZ: ZARAGOZA')
     print('\trefresh_time\t\t\tTime (in seconds) to retry is there\'s no ticket available.\n')
     
     # Example
